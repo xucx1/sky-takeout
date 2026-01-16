@@ -122,4 +122,26 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return new PageResult(total, records);
     }
+
+    /**
+     * 启用或禁用员工账号：根据传入的id，修改employee表里的status字段
+     * @param status
+     * @param id
+     */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        // update employee set status = ? where id = ?
+        // 为了通用性，sql语句应该写成动态的：不只是修改status，根据传入的参数的不同，还可以修改多个字段
+        // 考虑到动态更新 -> 创建employee实体类
+        /*Employee employee = new Employee();
+        employee.setId(id);
+        employee.setStatus(status);
+         */
+        // 通过Builder注解构造对象，与上面的方法效果完全一样。
+        Employee employee = Employee.builder()
+                .status(status)
+                .id(id)
+                .build();
+        employeeMapper.update(employee);
+    }
 }

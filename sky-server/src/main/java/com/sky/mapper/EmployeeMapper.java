@@ -36,4 +36,11 @@ public interface EmployeeMapper {
      * @return pagehelper插件要求的返回类型
      */
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
+
+    /**
+     * 根据主键来动态修改属性
+     * 动态修改，所以此处的sql语句不通过注解的方式去写
+     * @param employee
+     */
+    void update(Employee employee);
 }

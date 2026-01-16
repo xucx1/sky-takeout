@@ -101,4 +101,19 @@ public class EmployeeController {
         PageResult pageResult = employeeService.pageQuery(employeePageQueryDTO);
         return Result.success(pageResult);
     }
+
+    /**
+     * 启用或禁用员工账号；PostMapping注解中，{status}表示一个路径参数；非查询类的方法不强制要求有泛型
+     * @param status status是路径参数，需要注解去修饰（POST接口常用注解组合知识点）
+     * @param id
+     * @return
+     */
+    @PostMapping("/status/{status}")
+    @ApiOperation("启用或禁用员工账号")
+    public Result startOrStop(@PathVariable Integer status, Long id) {
+        log.info("启用或禁用员工账号：{},{}", status, id);
+        // 调用employeeService的方法来真正实现业务功能
+        employeeService.startOrStop(status, id);
+        return Result.success();
+    }
 }
