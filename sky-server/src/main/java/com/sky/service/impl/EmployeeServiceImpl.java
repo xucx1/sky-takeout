@@ -1,23 +1,29 @@
 package com.sky.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
 import com.sky.context.BaseContext;
 import com.sky.dto.EmployeeDTO;
 import com.sky.dto.EmployeeLoginDTO;
+import com.sky.dto.EmployeePageQueryDTO;
 import com.sky.entity.Employee;
 import com.sky.exception.AccountLockedException;
 import com.sky.exception.AccountNotFoundException;
 import com.sky.exception.PasswordErrorException;
 import com.sky.mapper.EmployeeMapper;
+import com.sky.result.PageResult;
 import com.sky.service.EmployeeService;
+import org.apache.poi.util.PackageHelper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -88,5 +94,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         // 调用持久层
         employeeMapper.insert(employee);
+    }
+
+    /**
+     * 分页查询
+     * @param employeePageQueryDTO
+     * @return 分页查询封装类
+     */
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        /*
+         底层通过MySQL的limit关键字来实现分页查询
+         select * from employee limit 0,10
+
+         使用pagehelper插件来简化代码编写，该插件在根目录下的pom.xml已经导入(66-70)
+         pagehelper底层是基于mybatis的拦截器实现，类似于mybatis的动态sql，动态地把limit关键字拼接并计算参数
+         */
+        // 开始分页查询，startPage帮我们完成字符串的拼接操作(具体细节看Day02-07)
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        // 返回值类型要符合插件的要求，Page是从pagehelper导入的
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        // 把page对象加工处理成PageResult对象
+        long total = page.getTotal();
+        List<Employee> records = page.getResult();
+
+        return new PageResult(total, records);
     }
 }
