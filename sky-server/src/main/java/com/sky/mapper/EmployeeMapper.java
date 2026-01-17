@@ -43,4 +43,13 @@ public interface EmployeeMapper {
      * @param employee
      */
     void update(Employee employee);
+
+    /**
+     * 根据id查询员工信息
+     * Select注解：用于在 MyBatis 的 Mapper 接口方法上，直接编写 SELECT SQL 语句，并将查询结果映射为 Java 对象返回。
+     * @param id
+     * @return
+     */
+    @Select("select * from employee where id = #{id}")
+    Employee getById(Long id);
 }
