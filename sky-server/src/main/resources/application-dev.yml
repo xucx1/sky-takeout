@@ -1,0 +1,14 @@
+sky:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    host: localhost
+    port: 3306
+    database: sky_take_out
+    username: root
+    password: xcx
+  alioss:
+    # 配置成自己的阿里云
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    access-key-id: ${ALIYUN_OSS_ACCESS_KEY_ID}
+    access-key-secret: ${ALIYUN_OSS_ACCESS_KEY_SECRET}
+    bucket-name: sky-takeout-xcx
