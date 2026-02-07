@@ -12,3 +12,12 @@ sky:
     access-key-id: ${ALIYUN_OSS_ACCESS_KEY_ID}
     access-key-secret: ${ALIYUN_OSS_ACCESS_KEY_SECRET}
     bucket-name: sky-takeout-xcx
+  redis:
+    # redis端口地址：本地
+    host: localhost
+    # redis端口号
+    port: 6379
+    # 密码：无
+    password:
+    # 使用哪一个数据库，redis不同数据库中的数据是完全隔离的
+    database: 10
