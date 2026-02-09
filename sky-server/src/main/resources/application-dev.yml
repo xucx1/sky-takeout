@@ -21,3 +21,6 @@ sky:
     password:
     # 使用哪一个数据库，redis不同数据库中的数据是完全隔离的
     database: 10
+  wechat:
+    appid: wxd3987c215043c833
+    secret: 2eb2be32ffa4faeaf7ecc69eef3eec48
