@@ -81,6 +81,7 @@ public class OrderController {
 
     /**
      * 取消订单
+     * 由于微信支付功能未完成，故省去了退款。
      * @param id
      * @return
      */
@@ -88,6 +89,18 @@ public class OrderController {
     @ApiOperation("取消订单")
     public Result cancel(@PathVariable Long id) throws Exception {
         orderService.userCancelById(id);
+        return Result.success();
+    }
+
+    /**
+     * 再来一单
+     * @param id
+     * @return
+     */
+    @PostMapping("/repetition/{id}")
+    @ApiOperation("再来一单")
+    public Result repetition(@PathVariable Long id) {
+        orderService.repetition(id);
         return Result.success();
     }
 }
