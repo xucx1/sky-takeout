@@ -79,5 +79,12 @@ public interface OrderMapper {
      * @param map
      * @return
      */
-    Double getByMap(HashMap<Object, Object> map);
+    Double sumByMap(HashMap<Object, Object> map);
+
+    /**
+     * 根据动态条件来统计订单数
+     * @param map
+     * @return
+     */
+    Integer countByMap(HashMap<Object, Object> map);
 }
